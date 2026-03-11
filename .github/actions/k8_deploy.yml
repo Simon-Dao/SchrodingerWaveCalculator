@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chunk-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chunk-worker
+  template:
+    metadata:
+      labels:
+        app: chunk-worker
+    spec:
+      containers:
+      - name: chunk-worker
+        image: <AWS_ACCOUNT_ID>.dkr.ecr.us-west-2.amazonaws.com/chunk_worker:latest
+        ports:
+        - containerPort: 8080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chunk-worker
+spec:
+  selector:
+    app: chunk-worker
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chunk-metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chunk-metrics
+  template:
+    metadata:
+      labels:
+        app: chunk-metrics
+    spec:
+      containers:
+      - name: chunk-metrics
+        image: <AWS_ACCOUNT_ID>.dkr.ecr.us-west-2.amazonaws.com/chunk_metrics:latest
+        ports:
+        - containerPort: 3000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chunk-metrics
+spec:
+  selector:
+    app: chunk-metrics
+  ports:
+  - port: 80
+    targetPort: 3000
+  type: ClusterIP
