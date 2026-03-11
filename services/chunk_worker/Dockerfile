@@ -1,24 +1,24 @@
 #build schrodinger file
-FROM python:3 as build
+# FROM python:3 as build
 
-RUN apt-get update && apt-get install -y gfortran && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y gfortran && rm -rf /var/lib/apt/lists/*
 
-RUN pip install numpy
+# RUN pip install numpy
 
-WORKDIR /build
+# WORKDIR /build
 
-COPY schrodinger.f90 . 
+# COPY schrodinger.f90 . 
 
-RUN f2py -c schrodinger.f90 -m schrodinger
+# RUN f2py -c schrodinger.f90 -m schrodinger
 
 #removed the fortran compiler
 FROM python:3-slim as runtime
 
-RUN pip install numpy
+# RUN pip install numpy
 
 WORKDIR /app
 
-COPY --from=build /build/schrodinger.so .
+# COPY --from=build /build/schrodinger.so .
 COPY parallel_worker.py .
 
 ENV JOB_COMPLETION_INDEX=0
