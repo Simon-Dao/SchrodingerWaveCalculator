@@ -12,7 +12,7 @@ data:
         - system:nodes
 
   mapUsers: |
-    - userarn: arn:aws:iam::424976457053:user/simod-cli
+    - userarn: arn:aws:iam::424976457053:user/capstone
       username: github
       groups:
         - system:masters
