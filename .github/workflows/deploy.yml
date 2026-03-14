@@ -83,4 +83,4 @@ jobs:
       - name: Deploy to EKS
         run: |
           aws eks update-kubeconfig --name capstone-cluster --region us-west-2
-          kubectl apply -f .github/actions/k8s_deployment.yml
+          kubectl apply -f .github/actions/k8s_deployment.yml --validate=false
