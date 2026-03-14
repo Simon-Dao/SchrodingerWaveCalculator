@@ -79,6 +79,9 @@ jobs:
           docker tag chunk_worker:$IMAGE_TAG $ECR_REGISTRY/chunk_worker:latest
           docker push $ECR_REGISTRY/chunk_worker:$IMAGE_TAG
           docker push $ECR_REGISTRY/chunk_worker:latest
+      
+      - name: Who am I
+        run: aws sts get-caller-identity
 
       - name: Deploy to EKS
         run: |
