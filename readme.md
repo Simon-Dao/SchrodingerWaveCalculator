@@ -25,3 +25,5 @@
 # 3. Push to ECR
 
 # 4. Deploy K8s with containers
+
+aws eks update-kubeconfig --region us-west-2 --name capstone-cluster
